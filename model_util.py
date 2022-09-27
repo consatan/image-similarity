@@ -3,11 +3,12 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 import numpy as np
 
-from tensorflow.python.keras.applications.mobilenet import MobileNet, preprocess_input
-from tensorflow.python.keras.preprocessing import image as process_image
-from tensorflow.python.keras.utils import Sequence
-from tensorflow.python.keras.layers import GlobalAveragePooling2D
-from tensorflow.python.keras import Model
+from keras.applications.mobilenet import MobileNet, preprocess_input
+from keras.utils.image_utils import img_to_array
+from keras.utils.image_utils import load_img
+from keras.utils import Sequence
+from keras.layers import GlobalAveragePooling2D
+from keras import Model
 
 
 class DeepModel():
@@ -44,8 +45,8 @@ class DeepModel():
         Returns:
             Numpy array of the image.
         '''
-        img = process_image.load_img(path, target_size=(224, 224))
-        x = process_image.img_to_array(img)
+        img = load_img(path, target_size=(224, 224))
+        x = img_to_array(img)
         # x = np.expand_dims(x, axis=0)
         x = preprocess_input(x)
         return x
